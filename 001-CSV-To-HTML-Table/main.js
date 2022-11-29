@@ -40,24 +40,28 @@ function renderHeading(headers) {
 }
 
 function renderRows(rows) {
-  rows.forEach((row) => {
-    const newRow = document.createElement("tr");
-    document.getElementById("tbody").appendChild(newRow);
+  for (row of rows) {
     rowData = row.split(/,(?=\S)/);
-    rowData.forEach((element, i) => {
-      const newCell = document.createElement("td");
-      if (i === 3) {
-        const mailLink = document.createElement("a");
-        mailLink.innerText = element;
-        mailLink.setAttribute("href", `mailto:${element}`);
-        newRow.appendChild(mailLink);
-      } else {
-        if (i === 6) {
-          element = element.replace(/"/g, "");
+    // Skip incomplete entries
+    if (rowData.length < 7) continue;
+    else {
+      const newRow = document.createElement("tr");
+      document.getElementById("tbody").appendChild(newRow);
+      rowData.forEach((element, i) => {
+        const newCell = document.createElement("td");
+        if (i === 3) {
+          const mailLink = document.createElement("a");
+          mailLink.innerText = element;
+          mailLink.setAttribute("href", `mailto:${element}`);
+          newRow.appendChild(mailLink);
+        } else {
+          if (i === 6) {
+            element = element.replace(/"/g, "");
+          }
+          newCell.innerText = element;
+          newRow.appendChild(newCell);
         }
-        newCell.innerText = element;
-        newRow.appendChild(newCell);
-      }
-    });
-  });
+      });
+    }
+  }
 }
