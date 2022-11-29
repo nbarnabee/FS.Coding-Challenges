@@ -49,7 +49,7 @@ function renderRows(rows, expectedLength) {
       document.getElementById("tbody").appendChild(newRow);
       rowData.forEach((element, i) => {
         const newCell = document.createElement("td");
-        if (i === 3) {
+        if (element.indexOf("@") > -1) {
           const mailLink = document.createElement("a");
           mailLink.innerText = element;
           mailLink.setAttribute("href", `mailto:${element}`);
