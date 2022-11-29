@@ -50,9 +50,7 @@ function renderRows(rows, expectedLength) {
       rowData.forEach((element) => {
         const newCell = document.createElement("td");
         if (element.indexOf("@") > -1) {
-          const mailLink = document.createElement("a");
-          mailLink.innerText = element;
-          mailLink.setAttribute("href", `mailto:${element}`);
+          const mailLink = createLink(element);
           newRow.appendChild(mailLink);
         } else {
           if (element[0] === '"') {
@@ -64,4 +62,11 @@ function renderRows(rows, expectedLength) {
       });
     }
   }
+}
+
+function createLink(data) {
+  const link = document.createElement("a");
+  link.innerText = data;
+  link.setAttribute("href", `mailto:${data}`);
+  return link;
 }
