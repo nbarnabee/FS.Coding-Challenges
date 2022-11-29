@@ -43,7 +43,7 @@ function renderRows(rows) {
   rows.forEach((row) => {
     const newRow = document.createElement("tr");
     document.getElementById("tbody").appendChild(newRow);
-    rowData = row.split(",");
+    rowData = row.split(/,(?=\S)/);
     rowData.forEach((element, i) => {
       const newCell = document.createElement("td");
       if (i === 3) {
@@ -52,11 +52,6 @@ function renderRows(rows) {
         mailLink.setAttribute("href", `mailto:${element}`);
         newRow.appendChild(mailLink);
       } else {
-        // Here I'm fixing the way that "split on comma" sometimes messes up the employer entry.  This is a dirty, dirty fix but I can't figure out how to accomplish what I want with regex.
-        if (i === 6 && rowData[7]) {
-          element = `${element}, ${rowData[7]}`;
-          rowData.length = 7;
-        }
         if (i === 6) {
           element = element.replace(/"/g, "");
         }
