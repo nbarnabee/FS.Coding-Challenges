@@ -28,6 +28,7 @@ function parseFile(text) {
 
 function buildTable(headers, rows) {
   renderHeading(headers);
+  renderRows(rows);
 }
 
 function renderHeading(headers) {
@@ -37,3 +38,25 @@ function renderHeading(headers) {
     document.getElementById("headers").appendChild(heading);
   });
 }
+
+function renderRows(rows) {
+  rows.forEach((row) => {
+    const newRow = document.createElement("tr");
+    document.getElementById("tbody").appendChild(newRow);
+    rowData = row.split(",");
+    rowData.forEach((element, i) => {
+      console.log(row);
+      const newCell = document.createElement("td");
+      if (i === 3) {
+        const mailLink = document.createElement("a");
+        mailLink.innerText = element;
+        mailLink.setAttribute("href", `mailto:${element}`);
+        newRow.appendChild(mailLink);
+      } else {
+        newCell.innerText = element;
+        newRow.appendChild(newCell);
+      }
+    });
+  });
+}
+//row[2] will be the email address
