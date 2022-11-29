@@ -28,7 +28,7 @@ function parseFile(text) {
 
 function buildTable(headers, rows) {
   renderHeading(headers);
-  renderRows(rows);
+  renderRows(rows, headers.length);
 }
 
 function renderHeading(headers) {
@@ -39,11 +39,11 @@ function renderHeading(headers) {
   });
 }
 
-function renderRows(rows) {
+function renderRows(rows, expectedLength) {
   for (row of rows) {
     rowData = row.split(/,(?=\S)/);
     // Skip incomplete entries
-    if (rowData.length < 7) continue;
+    if (rowData.length < expectedLength) continue;
     else {
       const newRow = document.createElement("tr");
       document.getElementById("tbody").appendChild(newRow);
